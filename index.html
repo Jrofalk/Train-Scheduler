@@ -81,7 +81,7 @@
                         <label for="exampleFormControlInput1">Frequency (Min.)</label>
                         <input type="text" class="form-control" id="train-freq">
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id='submit-button'>Submit</button>
                 </form>
             </div>
         </div>
@@ -95,16 +95,8 @@
     </div>
 
 
-
-
-
-
-
-
-
-
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
     <script type="text/javascript">
 
         var firebaseConfig = {
@@ -119,10 +111,19 @@
 
         firebase.initializeApp(firebaseConfig);
 
+        //let database = firebase.database();
+
         let trainName = "";
         let destination = "";
         let trainTime = "";
         let frequency = 0;
+
+        $("#submit-button").on("click", function(event) {
+          event.preventDefault();
+          
+
+        });
+
 
 
 
