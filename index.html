@@ -43,20 +43,6 @@
                             <td></td>
                             <td id='min-away'></td>
                         </tr>
-                        <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"></th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -137,11 +123,13 @@
             });
         });
 
+        
+
         database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
-            $('#name').text(snapshot.val().trainName);
-            $('#dest').text(snapshot.val().destination);
-            $('#freq').text(snapshot.val().trainTime);
-            $('#min-away').text(snapshot.val().frequency);
+            $('#name').append('<p>'+snapshot.val().trainName+'<p>');
+            $('#dest').append('<p>'+snapshot.val().destination+'<p>');
+            $('#freq').append('<p>'+snapshot.val().trainTime+'<p>');
+            $('#min-away').append('<p>'+snapshot.val().frequency+'<p>');
         
 
         });
