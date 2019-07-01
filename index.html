@@ -30,8 +30,8 @@
                             <th scope="col">Train Name</th>
                             <th scope="col">Destination</th>
                             <th scope="col">Frequency (Min.)</th>
-                            <th scope="col">Next Arrival</th>
-                            <th scope='col'>Minutes Away</th>
+                            <th scope="col">Minutes Away</th>
+                            <th scope='col'>Next Arrival</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,8 +39,8 @@
                             <td scope="row" id='name'></td>
                             <td id='dest'></td>
                             <td id='freq'></td>
-                            <td id='min-away'></td>
                             <td></td>
+                            <td id='next-arrival'></td>
                         </tr>
                     </tbody>
                 </table>
@@ -91,11 +91,10 @@
         firebase.initializeApp(config);
 
         var database = firebase.database();
-
         var trainName = "";
         var destination = "";
-        var trainTime = "";
         var frequency = "";
+        var trainTime = "";
 
         $("#submit-button").on("click", function (event) {
             event.preventDefault();
@@ -103,15 +102,12 @@
             destination = $('#destination').val().trim();
             trainTime = $('#train-time').val().trim();
             frequency = $('#train-freq').val().trim();
-
-
             database.ref().push({
                 trainName: trainName,
                 destination: destination,
                 frequency: frequency,
                 trainTime: trainTime,
                 dateAdded: firebase.database.ServerValue.TIMESTAMP
-
             });
         });
 
@@ -119,8 +115,7 @@
             $('#name').append('<p>' + snapshot.val().trainName + '<p>');
             $('#dest').append('<p>' + snapshot.val().destination + '<p>');
             $('#freq').append('<p>' + snapshot.val().frequency + '<p>');
-            $('#min-away').append('<p>'+ snapshot.val().trainTime + '<p>');
-
+            $('#next-arrival').append('<p>' + snapshot.val().trainTime + '<p>');
         });
 
     </script>
