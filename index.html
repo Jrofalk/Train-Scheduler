@@ -38,7 +38,6 @@
                         <tr>
                             <td scope="row" id='name'></td>
                             <td id='dest'></td>
-                            <td></td>
                             <td id='freq'></td>
                             <td></td>
                             <td id='min-away'></td>
@@ -73,14 +72,7 @@
             </div>
         </div>
 
-
-
-
-
-
-
     </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
@@ -116,29 +108,20 @@
             database.ref().push({
                 trainName: trainName,
                 destination: destination,
-                trainTime: trainTime,
                 frequency: frequency,
+                trainTime: trainTime,
                 dateAdded: firebase.database.ServerValue.TIMESTAMP
 
             });
         });
 
-        
-
         database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
-            $('#name').append('<p>'+snapshot.val().trainName+'<p>');
-            $('#dest').append('<p>'+snapshot.val().destination+'<p>');
-            $('#freq').append('<p>'+snapshot.val().trainTime+'<p>');
-            $('#min-away').append('<p>'+snapshot.val().frequency+'<p>');
-        
+            $('#name').append('<p>' + snapshot.val().trainName + '<p>');
+            $('#dest').append('<p>' + snapshot.val().destination + '<p>');
+            $('#freq').append('<p>' + snapshot.val().frequency + '<p>');
+            $('#min-away').append('<p>' + snapshot.val().trainTime + '<p>');
 
         });
-
-
-
-
-
-
 
     </script>
 
