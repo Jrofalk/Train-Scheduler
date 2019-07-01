@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Train Scheduler</title>
-    <script src="https://www.gstatic.com/firebasejs/6.2.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.2.4/firebase.js"></script>
 </head>
 
 <body>
@@ -36,11 +36,12 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row"></th>
+                            <td scope="row" id='name'></td>
+                            <td id='dest'></td>
                             <td></td>
+                            <td id='freq'></td>
                             <td></td>
-                            <td></td>
-                            <td></td>
+                            <td id='min-away'></td>
                         </tr>
                         <tr>
                             <th scope="row"></th>
@@ -97,9 +98,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script type="text/javascript">
+    <script>
 
-        var firebaseConfig = {
+        var config = {
             apiKey: "AIzaSyAgJI-9bEhSccBLdmFFjjy7QtUfgtL6LyI",
             authDomain: "class-project-bd533.firebaseapp.com",
             databaseURL: "https://class-project-bd533.firebaseio.com",
@@ -109,20 +110,42 @@
             appId: "1:105345276174:web:f2e02f82cbc77d5f"
         };
 
-        firebase.initializeApp(firebaseConfig);
+        firebase.initializeApp(config);
 
-        //let database = firebase.database();
+        var database = firebase.database();
 
-        let trainName = "";
-        let destination = "";
-        let trainTime = "";
-        let frequency = 0;
+        var trainName = "";
+        var destination = "";
+        var trainTime = "";
+        var frequency = "";
 
-        $("#submit-button").on("click", function(event) {
-          event.preventDefault();
-          
+        $("#submit-button").on("click", function (event) {
+            event.preventDefault();
+            trainName = $('#train-name').val().trim();
+            destination = $('#destination').val().trim();
+            trainTime = $('#train-time').val().trim();
+            frequency = $('#train-freq').val().trim();
+
+
+            database.ref().push({
+                trainName: trainName,
+                destination: destination,
+                trainTime: trainTime,
+                frequency: frequency,
+                dateAdded: firebase.database.ServerValue.TIMESTAMP
+
+            });
+        });
+
+        database.ref().orderByChild('dateAdded').limitToLast(1).on('child_added', function (snapshot) {
+            $('#name').text(snapshot.val().trainName);
+            $('#dest').text(snapshot.val().destination);
+            $('#freq').text(snapshot.val().trainTime);
+            $('#min-away').text(snapshot.val().frequency);
+        
 
         });
+
 
 
 
