@@ -87,6 +87,8 @@
             appId: "1:105345276174:web:f2e02f82cbc77d5f"
         };
 
+        //add styling and add functions to prevent default if unusable information is entered into the forms. Also had some default values so it is clear what needs to be entered.
+        //maybe add button to remove a train.
         firebase.initializeApp(config);
 
         var database = firebase.database();
@@ -109,10 +111,14 @@
                 trainTime: trainTime,
                 dateAdded: firebase.database.ServerValue.TIMESTAMP
             });
+            $("#train-name").val("");
+            $("#destination").val("");
+            $("#train-time").val("");
+            $("#train-freq").val("");
         });
 
         database.ref().on("child_added", function (childSnapshot) {
-            
+
             var trainName = childSnapshot.val().trainName;
             var destination = childSnapshot.val().destination;
             var trainTime = childSnapshot.val().trainTime;
