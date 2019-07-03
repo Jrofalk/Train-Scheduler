@@ -1,0 +1,6 @@
+.background{
+    background-image: url('../images/TrainPhoto.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
